@@ -1,0 +1,84 @@
+{
+  "name": "vscode-ex",
+  "displayName": "Code Assistant",
+  "description": "Code Assistant extension for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+   "onView:code-assistant-activity-bar.Directory-Structure",
+    "onCommand:code-assistant.showFileTree"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "code-assistant-activity-bar",
+          "title": "Code Assistant",
+          "name": "Code Assistant",
+          "icon": "media/icon.svg"  
+        }
+      ]
+    },
+    "views": {
+      "code-assistant-activity-bar": [
+        {
+          "id": "Directory-Structure",
+          "name": "Directory Structure",
+          "icon": "media/icon.svg"  
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "code-assistant.showFileTree",
+        "title": "Code Assistant",
+        "icon": "media/icon.svg"  
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "code-assistant.showFileTree",
+          "group": "navigation",
+          "when": "editorTextFocus",
+          "icon": "media/icon.svg"  
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "code-assistant.showFileTree",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder",
+          "icon": "media/icon.svg"  
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint ./src",
+    "test": "vscode-test",
+    "start": "node ./backend/server.js"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2"
+  }
+}
