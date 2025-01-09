@@ -10,60 +10,47 @@
     "Other"
   ],
   "activationEvents": [
-   "onView:code-assistant-activity-bar.Directory-Structure",
-    "onCommand:code-assistant.showFileTree"
+    "onCommand:code-assistant.showFileTree",
+    "onCommand:code-assistant.showEditorWebview",
+    "onView:code-assistant.showSidebarWebView"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "code-assistant-activity-bar",
-          "title": "Code Assistant",
-          "name": "Code Assistant",
-          "icon": "media/icon.svg"  
+          "id": "codeAssistantContainer",
+          "title": "Code Assistant", 
+          "icon": "media/icon.svg" 
         }
       ]
     },
     "views": {
-      "code-assistant-activity-bar": [
+      "codeAssistantContainer": [
         {
-          "id": "Directory-Structure",
-          "name": "Directory Structure",
-          "icon": "media/icon.svg"  
+          "id":"code-assistant.showSidebarWebView",
+          "name":"Sidebar Webview",
+          "type": "webview"
         }
       ]
+    
     },
     "commands": [
       {
         "command": "code-assistant.showFileTree",
-        "title": "Code Assistant",
-        "icon": "media/icon.svg"  
+        "title": "Show File tree",
+        "category": "Code Assistant"
+      },
+      {
+        "command": "code-assistant.showEditorWebview",
+        "title": "Editor Webview",
+        "category": "Code Assistant"
       }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "command": "code-assistant.showFileTree",
-          "group": "navigation",
-          "when": "editorTextFocus",
-          "icon": "media/icon.svg"  
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "code-assistant.showFileTree",
-          "group": "navigation",
-          "when": "explorerResourceIsFolder",
-          "icon": "media/icon.svg"  
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint ./src",
     "test": "vscode-test",
