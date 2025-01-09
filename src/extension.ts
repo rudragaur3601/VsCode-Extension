@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext): void {
     }));
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("code-assistant.showEditorWebview",()=>{
+    vscode.commands.registerCommand("code-assistant.showEditorWebview", () => {
       const editorPanel = vscode.window.createWebviewPanel(
         "CaEditorPanel",
         "Code Assistant",
@@ -37,26 +37,28 @@ export function activate(context: vscode.ExtensionContext): void {
           enableScripts: true,
         }
       );
-      try {
-        editorPanel.webview.html = getEditorWebviewContent();
-        vscode.window.showInformationMessage("file Webview content loaded successfully");
-      } catch (error) {
-          vscode.window.showErrorMessage("Failed to load File webview content.");        
-        }
-      })
-    );
 
-    context.subscriptions.push(
-      vscode.window.registerWebviewViewProvider("code-assistant.showSidebarWebView",{
-        resolveWebviewView(webviewView:vscode.WebviewView){
-          webviewView.webview.options={
-            enableScripts: true
-          }
-          webviewView.webview.html = getSidebarWebviewContent();
+      try {
+        editorPanel.webview.html = getEditorWebviewContent(editorPanel.webview);
+        vscode.window.showInformationMessage("File Webview content loaded successfully");
+      } catch (error) {
+        vscode.window.showErrorMessage("Failed to load File webview content.");
+      }
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider("code-assistant.showSidebarWebView", {
+      resolveWebviewView(webviewView: vscode.WebviewView) {
+        webviewView.webview.options = {
+          enableScripts: true
         }
-      })
-    )
-    
+
+        webviewView.webview.html = getSidebarWebviewContent(webviewView);
+      }
+    })
+  )
+
 }
 
 
